@@ -1,3 +1,4 @@
+require("dotenv").config()
 const express = require('express')
 const app = express()
 
@@ -44,7 +45,7 @@ app.get('/api/projects', (req, res) => {
     res.send('Git projects here')
 })
 
-const port = 5000;
+const port = process.env.PORT
 app.listen(port, () => {
     console.log(`server is up, listening on port ${port}`)
 })
