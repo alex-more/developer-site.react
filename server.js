@@ -1,6 +1,8 @@
 require("dotenv").config()
+const { NONAME } = require("dns")
 const express = require('express')
 const app = express()
+const db = require("./db")
 
 app.use(express.json())
 
@@ -9,35 +11,102 @@ app.get('/', (req, res) => {
 })
 
 // Blog routes
-app.get('/api/blog', (req, res) => {
-    res.send('Blog page here')
+app.get('/api/blog', async (req, res) => {
+    
+    try {
+        const results = await db.query('SELECT * FROM blog')
+        res.status(200).json({
+            status: "success",
+            results: results.rows.length,
+            data: {
+                blog: results.rows
+            }
+        })
+    } catch (err) {
+        res.send(err)
+    }
 })
 
-app.post('/api/blog', (req, res) => {
+app.post('/api/blog', async (req, res) => {
     //Create new blog entry here
-    res.status(201).json({
-        data: "dummy"
-    })
+    try {
+        const result = await db.query("INSERT INTO blog (title, category, content) values ($1, $2, $3) returning *", 
+        [req.body.title, req.body.category, req.body.content])
+
+        if(result.rows.length > 0) {
+            res.status(201).json({
+                status: "success",
+                data: {
+                    blog: result.rows[0]
+                }
+            })
+        } else {
+            res.status(204).json()
+        }
+
+    } catch (err) {
+        res.send(err)
+    }
 })
 
-app.put('/api/blog/:id', (res, req) => {
+app.put('/api/blog/:id', async (res, req) => {
     //Modify blog entry here
-    res.status(200).json({
-        data: "dummy"
-    })
+    try {
+        const result = await db.query("UPDATE blog SET title=$1, category=$2, content=$3 WHERE id=$4 returning *", 
+        [req.body.title, req.body.category, req.body.content, req.params.id])
+
+        if(result.rows.length > 0) {
+            res.status(200).json({
+                status: "success",
+                data: {
+                    blog: result.rows[0]
+                }
+            })
+        } else {
+            res.status(204).json()
+        }
+
+    } catch (err) {
+        res.send(err)
+    }
 })
 
-app.get('/api/blog/:id', (req, res) => {
+app.get('/api/blog/:id', async (req, res) => {
     //Show blog content here
-    res.status(200).json({
-        data: "dummy"
-    })
+    try {
+        const result = await db.query("SELECT * FROM blog WHERE id=$1", [req.params.id])
+
+        if(result.rows.length > 0) {
+            res.status(200).json({
+                status: "success",
+                data: {
+                    blog: result.rows
+                }
+            })
+        } else {
+            res.status(204).json()
+        }
+
+    } catch (err) {
+        res.send(err)
+    }
 })
 
-app.delete('/api/blog/:id', (req, res) => {
-    res.status(204).json({
-        data: "none"
-    })
+app.delete('/api/blog/:id', async (req, res) => {
+    try {
+        const result = await db.query("DELETE FROM blog WHERE id=$1", [req.params.id])
+
+        if(result.rows.length > 0) {
+            res.status(204).json({
+                status: "success",
+            })
+        } else {
+            res.status(204).json()
+        }
+
+    } catch (err) {
+        res.send(err)
+    }
 })
 
 // Project/Git routes
