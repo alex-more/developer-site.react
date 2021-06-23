@@ -1,0 +1,4 @@
+.hover-darken:hover {
+    filter:brightness(95%);
+    border: 1px solid turquoise;
+}

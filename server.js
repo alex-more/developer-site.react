@@ -1,9 +1,12 @@
 require("dotenv").config()
 const { NONAME } = require("dns")
 const express = require('express')
+const cors = require("cors")
 const app = express()
 const db = require("./db")
 
+
+app.use(cors())
 app.use(express.json())
 
 app.get('/', (req, res) => {
@@ -15,6 +18,24 @@ app.get('/api/blog', async (req, res) => {
     
     try {
         const results = await db.query('SELECT * FROM blog')
+        res.status(200).json({
+            status: "success",
+            results: results.rows.length,
+            data: {
+                blog: results.rows
+            }
+        })
+    } catch (err) {
+        res.send(err)
+    }
+})
+
+// Get subset of rows
+app.get('/api/blog/peek/:count', async (req, res) => {
+    
+    try {
+        const results = await db.query("SELECT * FROM blog LIMIT $1",
+        [req.params.count])
         res.status(200).json({
             status: "success",
             results: results.rows.length,
