@@ -1,11 +1,11 @@
 import React, {useEffect, useContext} from "react"
 import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
-import BlogPeek from "../components/BlogPeek"
+import AdminBlogPeek from "../components/AdminBlogPeek"
 import BlogAPI from "../apis/BlogAPI"
 import { BlogContext } from '../context/BlogContext';
 
-const BlogPage = () => {
+const AdminBlogEditor = (props) => {
     
     const {blogPosts, setBlogPosts} = useContext(BlogContext)
     useEffect(() => {
@@ -14,21 +14,31 @@ const BlogPage = () => {
                 const response = await BlogAPI.get("/")
                 setBlogPosts(response.data.data.blog)
             } catch (err) {
-                console.log(err)
+    
             }
         }
 
         fetchData();
     }, [])
 
+    const handleCreate = async () => {
+        try {
+
+        } catch {
+
+        }
+    }
+
     return (
         <div className="container-fluid">
             <Navbar />
             <h2 className="text-center m-4">All Blog Posts</h2>
 
+            <a className="btn btn-primary mt-2" href="/admin/blog/new">NEW POST</a>
+            
             {blogPosts.map(post => {
                 return (
-                    <BlogPeek post={post}/> 
+                    <AdminBlogPeek post={post}/> 
                 )
             })}
 
@@ -37,4 +47,4 @@ const BlogPage = () => {
     )
 }
 
-export default BlogPage
+export default AdminBlogEditor

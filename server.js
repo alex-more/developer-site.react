@@ -54,16 +54,12 @@ app.post('/api/blog', async (req, res) => {
         const result = await db.query("INSERT INTO blog (title, category, content) values ($1, $2, $3) returning *", 
         [req.body.title, req.body.category, req.body.content])
 
-        if(result.rows.length > 0) {
-            res.status(201).json({
-                status: "success",
-                data: {
-                    blog: result.rows[0]
-                }
-            })
-        } else {
-            res.status(204).json()
-        }
+        res.status(201).json({
+            status: "success",
+            data: {
+                blogPost: result.rows[0]
+            }
+        });
 
     } catch (err) {
         res.send(err)
@@ -82,7 +78,7 @@ app.put('/api/blog/:id', async (res, req) => {
                 data: {
                     blog: result.rows[0]
                 }
-            })
+            });
         } else {
             res.status(204).json()
         }
