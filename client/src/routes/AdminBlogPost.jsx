@@ -13,7 +13,7 @@ const AdminBlogPost = (props) => {
     const [title, setTitle] = useState("")
     const [category, setCategory] = useState("")
     const [content, setContent] = useState("")
-    const history = useHistory();
+    let history = useHistory();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -67,7 +67,12 @@ const AdminBlogPost = (props) => {
                             </div>
                             <Link to="/admin/blog">
                                 <button onClick={handleSubmit} type="submit" className="btn btn-primary">
-                                    Add
+                                    ADD
+                                </button>
+                            </Link>
+                            <Link to="/admin/blog">
+                                <button className="btn btn-secondary mx-2">
+                                    CANCEL
                                 </button>
                             </Link>
                         </form>

@@ -1,6 +1,6 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
+import React, {useContext} from 'react'
 import BlogAPI from "../apis/BlogAPI"
+import { BlogContext } from '../context/BlogContext';
 import '../styles.css';
 
 const AdminBlogPeek = (props) => {
@@ -17,13 +17,16 @@ const AdminBlogPeek = (props) => {
         postUrl = "/blog/" + postId;
     }
 
-    const {id} = useParams()
+    const {blogPosts, setBlogPosts} = useContext(BlogContext)
 
     const handleDelete = async () => {
         
         if(window.confirm("Are you sure you want to delete this blog post?")) {
             try {
-                await BlogAPI.delete("/" + id)
+                await BlogAPI.delete("/" + postId)
+                setBlogPosts(blogPosts.filter(blogPost => {
+                    return blogPost.id !== postId;
+                }))
             } catch (err) {
                 console.log(err)
             }
@@ -39,7 +42,7 @@ const AdminBlogPeek = (props) => {
                 <h5 className="card-title">{props.post.title}</h5>
                 <p className="card-text">{shortened}</p>
                 <a href={"/admin/blog/" + postId} className="btn btn-warning">EDIT</a>
-                <button className="btn btn-danger mx-2" onClick={handleDelete}>DELETE</button>
+                <button className="btn btn-danger mx-2" onClick={() => handleDelete()}>DELETE</button>
             </div>
         </div>
     )
