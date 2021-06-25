@@ -21,14 +21,6 @@ const AdminBlogEditor = (props) => {
         fetchData();
     }, [])
 
-    const handleCreate = async () => {
-        try {
-
-        } catch {
-
-        }
-    }
-
     return (
         <div className="container-fluid">
             <Navbar />
@@ -38,7 +30,7 @@ const AdminBlogEditor = (props) => {
             
             {blogPosts.map(post => {
                 return (
-                    <AdminBlogPeek post={post}/> 
+                    <AdminBlogPeek post={post} key={post.id}/> 
                 )
             })}
 

@@ -66,25 +66,21 @@ app.post('/api/blog', async (req, res) => {
     }
 })
 
-app.put('/api/blog/:id', async (res, req) => {
+app.put('/api/blog/:id', async (req, res) => {
     //Modify blog entry here
     try {
         const result = await db.query("UPDATE blog SET title=$1, category=$2, content=$3 WHERE id=$4 returning *", 
         [req.body.title, req.body.category, req.body.content, req.params.id])
 
-        if(result.rows.length > 0) {
-            res.status(200).json({
-                status: "success",
-                data: {
-                    blog: result.rows[0]
-                }
-            });
-        } else {
-            res.status(204).json()
-        }
+        res.status(200).json({
+            status: "success",
+            data: {
+                blogPost: result.rows[0]
+            }
+        })
 
     } catch (err) {
-        res.send(err)
+        console.log(err)
     }
 })
 
@@ -97,7 +93,7 @@ app.get('/api/blog/:id', async (req, res) => {
             res.status(200).json({
                 status: "success",
                 data: {
-                    blog: result.rows
+                    blogPost: result.rows[0]
                 }
             })
         } else {

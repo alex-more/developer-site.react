@@ -1,51 +1,43 @@
-import React, {useEffect, useContext, useState} from 'react'
+import React, {useContext, useState} from 'react'
 import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
-import { useParams, Link , useHistory} from 'react-router-dom'
+import { Link, useHistory} from 'react-router-dom'
 import BlogAPI from "../apis/BlogAPI"
 import { BlogContext } from '../context/BlogContext';
 
-const AdminBlogPost = (props) => {
+const AdminBlogNew = (props) => {
 
-    const {id} = useParams()
-    const history = useHistory();
+    const { addBlogPosts } = useContext(BlogContext);
+
+    let history = useHistory();
 
     const [title, setTitle] = useState("")
     const [category, setCategory] = useState("")
     const [content, setContent] = useState("")
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const response = await BlogAPI.get(`/${id}`)
-
-            setTitle(response.data.data.blogPost.title)
-            setCategory(response.data.data.blogPost.category)
-            setContent(response.data.data.blogPost.content)
-        }
-
-        fetchData();
-    }, [])
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        const response = await BlogAPI.put(`/${id}`, {
-            title,
-            category,
-            content
-        });
-        
-        console.log(response)
-        history.push("/admin/blog");
+        try {
+            const response = await BlogAPI.post("/", {
+                title,
+                category,
+                content
+            });
+
+            addBlogPosts(response.data.data.blogPost)
+            history.push("/admin/blog");
+        } catch (err) {
+            console.log(err)
+        }
     };
 
     return (
         <div className="container-fluid">
             <Navbar />
-            <h2 className="text-center my-4">Edit Post</h2>
+            <h2 className="my-4 text-center">New Post</h2>
             <div className="card-block">
                         <form action="">
-                            <div className="form-group my-2">
+                            <div className="form-row my-2">
                                 <label htmlFor="title">Title</label>
                                 <input
                                     value={title}
@@ -55,7 +47,7 @@ const AdminBlogPost = (props) => {
                                     className="form-control"
                                 />
                             </div>
-                            <div className="form-group my-2">
+                            <div className="form-row my-2">
                             <label htmlFor="category">Category</label>
                                 <input
                                     value={category}
@@ -65,7 +57,7 @@ const AdminBlogPost = (props) => {
                                     className="form-control"
                                 />
                             </div>
-                            <div className="form-group my-2">
+                            <div className="form-row my-2">
                             <label htmlFor="content">Content</label>
                                 <textarea
                                     value={content}
@@ -75,11 +67,11 @@ const AdminBlogPost = (props) => {
                                     className="form-control mb-4"
                                 />
                             </div>
-                            
-                            <button onClick={handleSubmit} type="submit" className="btn btn-primary">
-                                APPLY
-                            </button>
-                            
+                            <Link to="/admin/blog">
+                                <button onClick={handleSubmit} type="submit" className="btn btn-primary">
+                                    ADD
+                                </button>
+                            </Link>
                             <Link to="/admin/blog">
                                 <button className="btn btn-secondary mx-2">
                                     CANCEL
@@ -92,4 +84,4 @@ const AdminBlogPost = (props) => {
     )
 }
 
-export default AdminBlogPost
+export default AdminBlogNew
