@@ -4,7 +4,7 @@ const express = require('express')
 const cors = require("cors")
 const app = express()
 const db = require("./db")
-
+const bcrypt = require('bcrypt')
 
 app.use(cors())
 app.use(express.json())
@@ -13,11 +13,17 @@ app.get('/', (req, res) => {
     res.send('Homepage here')
 })
 
+// TODO: Implement login system
+
+// TODO: Improve layout with bootstrap and other CSS rules
+
+// TODO: Complete README
+
 // Blog routes
 app.get('/api/blog', async (req, res) => {
     
     try {
-        const results = await db.query('SELECT * FROM blog')
+        const results = await db.query('SELECT * FROM blog ORDER BY post_date DESC')
         res.status(200).json({
             status: "success",
             results: results.rows.length,
@@ -123,8 +129,61 @@ app.delete('/api/blog/:id', async (req, res) => {
 })
 
 // Project/Git routes
-app.get('/api/projects', (req, res) => {
+app.get('/api/projects', async (req, res) => {
     res.send('Git projects here')
+})
+
+// Create user if no user yet
+app.post('/api/users', async (req, res) => {
+    // 1. Check if a user exists in DB already
+    const userCount = await db.query('SELECT COUNT(*) FROM users')
+
+    // 2. If not, then create user based on contents of .env
+    let username = process.env.CUSER;
+    let password = process.env.CPASSWORD;
+
+    // Hash password using bcrypt
+    const hashedPassword = await bcrypt.hash(password, 10)
+
+    // 3. Store that user in DB
+    if(userCount.rows[0].count == 0) {
+        await db.query("INSERT INTO users (Username, Password) values ($1, $2) returning *", 
+        [username, hashedPassword])
+    }
+
+    res.status(200);
+})
+
+// Login route
+app.post('/api/login', async (req, res) => {
+    // 1. Send JSON body (React form needs to put it in request)
+    // with credentials (user and password)
+    // 2. Validate credentials with bcrypt
+    let validCredentials = false;
+    try {
+        const pass = await db.query('SELECT password FROM users WHERE username=$1', 
+        [req.body.username])
+
+        if (pass.rows[0].password == null) {
+            return res.status(400).send('Cannot find user')
+        }
+
+        console.log("username: success")
+
+        if(await bcrypt.compare(req.body.password, pass.rows[0].password)) {
+            validCredentials = true;
+            console.log("password: success")
+        }
+
+        // 3. Generate a JWT (see video on jsonwebtoken)
+        if (validCredentials) {
+
+        }
+    } catch (err) {
+        res.status(500).send();
+    }
+
+    res.status(200).json();
 })
 
 const port = process.env.PORT
