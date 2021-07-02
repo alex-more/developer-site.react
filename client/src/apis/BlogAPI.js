@@ -4,6 +4,7 @@ require("dotenv").config();
 const port = process.env.PORT;
 console.log(port)
 
-export default axios.create({
-    baseURL: `http://localhost:4000/api/blog` // TODO: Dont hardcode port
-});
+axios.defaults.baseURL = `http://localhost:4000/api/blog`
+axios.defaults.headers.common = { 'Authorization': "Bearer " + window.localStorage.getItem('token') }
+
+export default axios;
