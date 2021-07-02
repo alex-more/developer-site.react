@@ -16,7 +16,6 @@ app.get('/', (req, res) => {
 
 // Blog routes
 app.get('/api/blog', async (req, res) => {
-    
     try {
         const results = await db.query('SELECT * FROM blog ORDER BY post_date DESC')
         res.status(200).json({
@@ -189,7 +188,7 @@ app.post('/api/login', async (req, res) => {
         // 3. Generate a JWT (see video on jsonwebtoken)
         if (validCredentials) {
             const user = { name: req.body.username }
-            const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+            const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20h' })
             res.status(200).json({ accessToken })
         }
 
@@ -198,7 +197,7 @@ app.post('/api/login', async (req, res) => {
     }
 })
 
-// Authenticates a Json Web Token //TODO: Make verificationexpire?
+// Authenticates a Json Web Token
 function verifyToken(req, res, next) {
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
@@ -211,10 +210,8 @@ function verifyToken(req, res, next) {
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         if(err) {
-            console.log("authentication FAILED")
             return res.sendStatus(403);
         } else {
-            console.log("authentication PASSED")
             req.valid = true;
         }
     })
