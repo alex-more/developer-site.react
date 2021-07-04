@@ -3,13 +3,26 @@ import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
 import AdminBlogPeek from "../components/AdminBlogPeek"
 import BlogAPI from "../apis/BlogAPI"
+import LoginAPI from "../apis/LoginAPI"
 import { BlogContext } from '../context/BlogContext';
+import { useHistory } from 'react-router-dom'
 
 const AdminBlogEditor = (props) => {
-    //TODO: Call a backend request to authenticate user token before displaying page
 
+    const history = useHistory();
     const {blogPosts, setBlogPosts} = useContext(BlogContext)
+
     useEffect(() => {
+
+        const checkLogin = async () => {
+            try {
+                await BlogAPI.get("/admin/authenticate", 
+                { headers: {'Authorization': "Bearer " + window.localStorage.getItem('token')} })
+            } catch (err) {
+                history.push('/')
+            }
+        }
+
         const fetchData = async () => {
             try {
                 const response = await BlogAPI.get("/")
@@ -19,6 +32,7 @@ const AdminBlogEditor = (props) => {
             }
         }
 
+        checkLogin();
         fetchData();
     }, [])
 

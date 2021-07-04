@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useState, useEffect} from 'react'
 import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
 import { Link, useHistory} from 'react-router-dom'
@@ -14,6 +14,20 @@ const AdminBlogNew = (props) => {
     const [title, setTitle] = useState("")
     const [category, setCategory] = useState("")
     const [content, setContent] = useState("")
+
+    useEffect(() => {
+
+        const checkLogin = async () => {
+            try {
+                await BlogAPI.get("/admin/authenticate", 
+                { headers: {'Authorization': "Bearer " + window.localStorage.getItem('token')} })
+            } catch (err) {
+                history.push('/')
+            }
+        }
+
+        checkLogin();
+    }, [])
 
     const handleSubmit = async (e) => {
         e.preventDefault();

@@ -28,7 +28,7 @@ const Home = () => {
             
             {blogPosts.map(post => {
                 return (
-                    <BlogPeek post={post}/>
+                    <BlogPeek post={post} key={post.id}/>
                 )
             })}
 

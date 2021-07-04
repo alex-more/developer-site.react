@@ -15,6 +15,17 @@ const AdminBlogPost = (props) => {
     const [content, setContent] = useState("")
 
     useEffect(() => {
+
+        const checkLogin = async () => {
+            try {
+                await BlogAPI.get("/admin/authenticate", 
+                { headers: {'Authorization': "Bearer " + window.localStorage.getItem('token')} })
+            } catch (err) {
+                history.push('/')
+            }
+        }
+        
+        // FIXME: Program crashes when going to localhost:3000/admin/blog/:ANYTHING
         const fetchData = async () => {
             const response = await BlogAPI.get(`/${id}`)
 
@@ -23,7 +34,7 @@ const AdminBlogPost = (props) => {
             setContent(response.data.data.blogPost.content)
         }
 
-        fetchData();
+        checkLogin().then(fetchData());
     }, [])
 
     const handleSubmit = async (e) => {

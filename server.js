@@ -14,6 +14,15 @@ app.get('/', (req, res) => {
     res.send('Homepage here')
 })
 
+// Check if user is logged in
+app.get('/api/blog/admin/authenticate', verifyToken, (req, res) => {
+    if(req.valid == false) {
+        return res.status(200).json({ status: "failure" });
+    }
+        
+    res.status(200).json({ status: "success" });
+})
+
 // Blog routes
 app.get('/api/blog', async (req, res) => {
     try {
@@ -167,11 +176,9 @@ app.post('/api/users', async (req, res) => {
 
 // Login route
 app.post('/api/login', async (req, res) => {
-    // 1. Send JSON body (React form needs to put it in request)
-    // with credentials (user and password)
-    // 2. Validate credentials with bcrypt
-    let validCredentials = false;
+    // 1. Validate credentials with bcrypt
     try {
+        let validCredentials = false;
         const pass = await db.query('SELECT password FROM users WHERE username=$1', 
         [req.body.username])
 
@@ -185,7 +192,7 @@ app.post('/api/login', async (req, res) => {
             return res.status(200).json({ accessToken: 'invalid_token' })
         }
 
-        // 3. Generate a JWT (see video on jsonwebtoken)
+        // 2. Generate a jsonwebtoken
         if (validCredentials) {
             const user = { name: req.body.username }
             const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20h' })
@@ -204,7 +211,6 @@ function verifyToken(req, res, next) {
     req.valid = false;
 
     if(token == null) {
-        console.log("token was NULL")
         return res.sendStatus(401);
     }
 
@@ -213,10 +219,9 @@ function verifyToken(req, res, next) {
             return res.sendStatus(403);
         } else {
             req.valid = true;
+            next();
         }
     })
-
-    next();
 }
 
 const port = process.env.PORT

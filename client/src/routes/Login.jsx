@@ -13,19 +13,23 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         
-        const response = await LoginAPI.post("/", {
-            username,
-            password
-        });
-        
-        if(response) {
-            window.localStorage.setItem('token', response.data.accessToken)
+        try {
+            const response = await LoginAPI.post("/", {
+                username,
+                password
+            });
             
-            if(window.localStorage.getItem('token') === 'invalid_token') {
-                history.go(0)
-            } else {
-                history.push("/admin/blog");
+            if(response) {
+                window.localStorage.setItem('token', response.data.accessToken)
+                
+                if(window.localStorage.getItem('token') === 'invalid_token') {
+                    history.go(0)
+                } else {
+                    history.push("/admin/blog");
+                }
             }
+        } catch (err) {
+            console.log(err)
         }
     };
 
