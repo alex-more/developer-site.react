@@ -61,15 +61,16 @@ app.get('/api/github/:user', (req, res) => {
 app.get('/api/readme/:repo', (req, res) => {
 
     let request = https.request(`https://raw.githubusercontent.com/${username}/${req.params.repo}/master/README.md`, 
-    readmeOptions, (res) => {
+    readmeOptions, function(response) {
         
         let body = '';
         response.on("data", function(chunk){
             body += chunk.toString('utf8');
         })
         response.on("end", function(){
-            parsedBody = JSON.parse(body)
-            res.status(200).json(parsedBody)
+            res.status(200).json({
+                data: body
+            })
         })
     })
     request.end();

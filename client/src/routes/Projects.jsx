@@ -15,9 +15,6 @@ const Projects = () => {
             try {
                 console.log("Loading projects page...")
                 const response = await GithubAPI.get()
-                //const response = await ReadmeAPI.get("blog-manager/master/README.md")
-                //const response = await axios.get("https://api.github.com/users/alex-more")
-                //setBlogPosts(response.data.data.blog) Extract projects from response
                 setProjects(response.data)
             } catch (err) {
                 console.log(err)
@@ -37,6 +34,7 @@ return (
         )
     })}
     </>
+    // TODO: Add repo link to the props so user can click on it
 
 )
     /*
