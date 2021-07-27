@@ -6,9 +6,27 @@ const app = express()
 const db = require("./db")
 const bcrypt = require('bcrypt')
 const jwt = require("jsonwebtoken")
+const { request } = require("http")
+const https = require("https")
 
 app.use(cors())
 app.use(express.json())
+
+const username = 'alex-more' // For github readme api call
+
+// For Github API calls
+let gitOptions = {
+    host: 'api.github.com',
+    path: '/users/' + username + '/repos',
+    method: 'GET',
+    headers: {'user-agent': 'node.js'}
+}
+
+// For Readme API calls
+let readmeOptions = {
+    method: 'GET',
+    headers: {'user-agent': 'node.js'}
+}
 
 app.get('/', (req, res) => {
     res.send('Homepage here')
@@ -23,8 +41,43 @@ app.get('/api/blog/admin/authenticate', verifyToken, (req, res) => {
     res.status(200).json({ status: "success" });
 })
 
+// Github API Request to list all repos of user
+app.get('/api/github/:user', (req, res) => {
+    
+    let request = https.request(gitOptions, function(response) {
+        let body = '';
+        response.on("data", function(chunk){
+            body += chunk.toString('utf8');
+        })
+        response.on("end", function(){
+            parsedBody = JSON.parse(body)
+            res.status(200).json(parsedBody)
+        })
+    })
+    request.end();
+})
+
+// Github API Request for readme of specific repo
+app.get('/api/readme/:repo', (req, res) => {
+
+    let request = https.request(`https://raw.githubusercontent.com/${username}/${req.params.repo}/master/README.md`, 
+    readmeOptions, (res) => {
+        
+        let body = '';
+        response.on("data", function(chunk){
+            body += chunk.toString('utf8');
+        })
+        response.on("end", function(){
+            parsedBody = JSON.parse(body)
+            res.status(200).json(parsedBody)
+        })
+    })
+    request.end();
+})
+
 // Blog routes
 app.get('/api/blog', async (req, res) => {
+    console.log("GET Request inbound")
     try {
         const results = await db.query('SELECT * FROM blog ORDER BY post_date DESC')
         res.status(200).json({
