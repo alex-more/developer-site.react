@@ -30,7 +30,7 @@ return (
 
     {projects && projects.map(project => {
         return (
-            <ProjectPeek repo={project.name} key={project.name}/> 
+            <ProjectPeek repo={project.name} url={project.html_url} key={project.name}/> 
         )
     })}
     </>

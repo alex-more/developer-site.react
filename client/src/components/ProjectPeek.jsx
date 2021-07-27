@@ -15,7 +15,7 @@ const ProjectPeek = (props) => {
     let repoUrl = ""
     if(props.repo) {
         repoName = props.repo;
-        repoUrl = "/repo/" + repoName;
+        repoUrl = props.url;
     }
 
     const [readme, setReadme] = useState();
@@ -26,7 +26,6 @@ const ProjectPeek = (props) => {
             try {
                 console.log("Loading projects page...")
                 const response = await ReadmeAPI.get(repoName)
-                //setReadme(shorten(response.data.data))
                 setReadme(shorten(response.data.data))
             } catch (err) {
                 console.log(err)
@@ -41,7 +40,7 @@ const ProjectPeek = (props) => {
         if(text) {
             shortened = text.substring(0, 360);
             if(text.length !== shortened.length) {
-                shortened = shortened + " . . ."
+                shortened = shortened + " ...\n(Click for more details)"
             }
         }
         return shortened;
