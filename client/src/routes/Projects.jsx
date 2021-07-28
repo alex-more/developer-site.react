@@ -3,7 +3,6 @@ import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
 import ProjectPeek from "../components/ProjectPeek"
 import GithubAPI from "../apis/GithubAPI"
-import ReadmeAPI from "../apis/ReadmeAPI"
 
 const Projects = () => {
     
@@ -13,8 +12,8 @@ const Projects = () => {
         // Gives me list of all repos
         const fetchData = async () => {
             try {
-                console.log("Loading projects page...")
                 const response = await GithubAPI.get()
+                response.data.sort(compareDates)
                 setProjects(response.data)
             } catch (err) {
                 console.log(err)
@@ -24,6 +23,16 @@ const Projects = () => {
         fetchData()
     }, [])
 
+    function compareDates(a, b) {
+        if(a.updated_at < b.updated_at) {
+            return 1;
+        }
+        if(a.updated_at > b.updated_at) {
+            return -1;
+        }
+
+        return 0;
+    }
 return (
     <>
     <Navbar />
@@ -33,8 +42,9 @@ return (
             <ProjectPeek repo={project.name} url={project.html_url} key={project.name}/> 
         )
     })}
+
+    <Footer />
     </>
-    // TODO: Add repo link to the props so user can click on it
 
 )
     /*
