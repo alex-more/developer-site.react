@@ -53,7 +53,7 @@ const Home = () => {
                 )
             })}
 
-            {blogPosts.map(post => {
+            {blogPosts && blogPosts.map(post => {
                 return (
                     <BlogPeek post={post} key={post.id}/>
                 )
