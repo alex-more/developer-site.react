@@ -7,7 +7,7 @@ const AboutMe = () => {
         <div className="d-flex flex-column pageContainer">
             <Navbar />
             <div className="container-fluid">
-                <br />
+                <br /><br /><br />
                 <div className="aboutme">
                     <h1 className="text-center">
                         Hi, I'm Alex.
@@ -19,7 +19,7 @@ const AboutMe = () => {
                         <br /><br />
                         These days I am working on an AWS certification, and improving my web skills, with a focus on PostgreSQL, React, and Node.js.
                         <br /><br />
-                        If you have something in mind, you can message me at alexjavier28@msn.com
+                        If you have something in mind, you can always message me at alexj.moren@gmailcom
                     </h5>
                 </div>
             </div>

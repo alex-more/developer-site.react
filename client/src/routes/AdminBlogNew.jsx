@@ -27,7 +27,7 @@ const AdminBlogNew = (props) => {
         }
 
         checkLogin();
-    }, [])
+    }, [history])
 
     const handleSubmit = async (e) => {
         e.preventDefault();

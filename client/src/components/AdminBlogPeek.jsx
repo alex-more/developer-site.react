@@ -11,10 +11,9 @@ const AdminBlogPeek = (props) => {
     }
 
     let postId = ""
-    let postUrl = ""
+    
     if(props.post.id) {
         postId = props.post.id;
-        postUrl = "/blog/" + postId;
     }
 
     const {blogPosts, setBlogPosts} = useContext(BlogContext)

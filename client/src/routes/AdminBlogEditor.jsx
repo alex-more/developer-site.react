@@ -3,7 +3,6 @@ import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
 import AdminBlogPeek from "../components/AdminBlogPeek"
 import BlogAPI from "../apis/BlogAPI"
-import LoginAPI from "../apis/LoginAPI"
 import { BlogContext } from '../context/BlogContext';
 import { useHistory } from 'react-router-dom'
 
@@ -34,7 +33,7 @@ const AdminBlogEditor = (props) => {
 
         checkLogin();
         fetchData();
-    }, [])
+    }, [history, setBlogPosts])
 
     return (
         <div className="d-flex flex-column pageContainer">

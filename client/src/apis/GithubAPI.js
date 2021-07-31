@@ -1,12 +1,12 @@
 import axios from "axios";
-require("dotenv").config();
+const config = require('../config.json');
 
-const username = "alex-more" // Put your username here
+const port = config.server_url;
 
-// TODO: Find way to make username a global variable
+const username = config.github_username;
 
 let gitAxios = axios.create({
-    baseURL: `http://localhost:4000/api/github/${username}`
+    baseURL: `${port}/api/github/${username}`
 })
 
 export default gitAxios;

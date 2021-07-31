@@ -1,9 +1,8 @@
-import React, {useEffect, useState, useContext} from 'react'
+import React, {useEffect, useState} from 'react'
 import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
 import { useParams } from 'react-router-dom'
 import BlogAPI from "../apis/BlogAPI"
-import { BlogContext } from '../context/BlogContext';
 
 const BlogPost = (props) => {
 
@@ -15,8 +14,6 @@ const BlogPost = (props) => {
         const fetchData = async () => {
             try {
                 const response = await BlogAPI.get("/" + id)
-                console.log(response)
-                console.log(response.data.data.blogPost)
                 setBlogPost(response.data.data.blogPost)
             } catch (err) {
     
@@ -24,7 +21,7 @@ const BlogPost = (props) => {
         }
 
         fetchData();
-    }, [])
+    }, [id])
 
     return (
         <div className="d-flex flex-column pageContainer">
@@ -35,7 +32,7 @@ const BlogPost = (props) => {
                 <h1 className="my-5 bigtext">{blogPost && blogPost.title}</h1>
                 <br />
                 <br />
-                <p className="card-content text-justify">{blogPost && blogPost.content}</p>
+                <p className="card-content">{blogPost && blogPost.content}</p>
             </div>
 
             <Footer />

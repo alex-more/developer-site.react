@@ -1,18 +1,16 @@
 require("dotenv").config()
-const { NONAME } = require("dns")
 const express = require('express')
 const cors = require("cors")
 const app = express()
 const db = require("./db")
 const bcrypt = require('bcrypt')
 const jwt = require("jsonwebtoken")
-const { request } = require("http")
 const https = require("https")
 
 app.use(cors())
 app.use(express.json())
 
-const username = 'alex-more' // For github readme api call
+const username = process.env.GITUSER;
 
 // For Github API calls
 let gitOptions = {
@@ -78,7 +76,6 @@ app.get('/api/readme/:repo', (req, res) => {
 
 // Blog routes
 app.get('/api/blog', async (req, res) => {
-    console.log("GET Request inbound")
     try {
         const results = await db.query('SELECT * FROM blog ORDER BY post_date DESC')
         res.status(200).json({

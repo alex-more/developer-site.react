@@ -19,7 +19,7 @@ const BlogPage = () => {
         }
 
         fetchData();
-    }, [])
+    }, [setBlogPosts])
 
     return (
         <div className="d-flex flex-column pageContainer">

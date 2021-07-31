@@ -22,12 +22,12 @@ const Home = () => {
                 projects.data.sort(compareDates)
                 setProjects(projects.data.slice(0, 4))
             } catch (err) {
-    
+                console.log(err)
             }
         }
 
         fetchData();
-    }, [])
+    }, [setBlogPosts])
 
     function compareDates(a, b) {
         if(a.updated_at < b.updated_at) {
@@ -51,8 +51,8 @@ const Home = () => {
                     </h1>
 
                     <h5 className="intro-part mx-2">
-                        I'm a programmer currently studying Computer Science at UQAM. <br />
-                        This website was made using Node.js, Postgresql and React and makes use of Github's REST API.
+                        I'm a programmer currently studying Computer Science at UQAM. <br /><br />
+                        This website was made using Node.js, PostgreSQL and React and connects to Github's API.
                     </h5>
                 </div>
 

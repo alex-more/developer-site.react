@@ -1,10 +1,10 @@
 import axios from "axios";
-require("dotenv").config();
+const config = require('../config.json');
 
-// TODO: Find way to make username a global variable
+const port = config.server_url;
 
 let readmeAxios = axios.create({
-    baseURL: `http://localhost:4000/api/readme/`
+    baseURL: `${port}/api/readme/`
 })
 
 export default readmeAxios;

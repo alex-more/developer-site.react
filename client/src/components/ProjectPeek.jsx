@@ -7,8 +7,6 @@ const ProjectPeek = (props) => {
     // IF there is a README, then make a shorter version of it, otherwise
     // display default message "No README available at this time."
 
-    // TODO: Add link to the repo
-
     let keygen = 0; // This is just to avoid a warning message
 
     let repoName = ""
@@ -24,7 +22,6 @@ const ProjectPeek = (props) => {
         // Gives me list of all repos
         const fetchData = async () => {
             try {
-                console.log("Loading projects page...")
                 const response = await ReadmeAPI.get(repoName)
                 setReadme(shorten(response.data.data))
             } catch (err) {
@@ -33,7 +30,7 @@ const ProjectPeek = (props) => {
         }
 
         fetchData()
-    }, [])
+    }, [repoName])
 
     function shorten(text) {
         let shortened = "";

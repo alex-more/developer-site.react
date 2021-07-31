@@ -4,6 +4,7 @@
     --highlight: #9d8ffc;
     --accent: #6658c2;
     --dark-t: rgba(24, 24, 24, 0.8);
+    background-color: #181818;
 }
 
 .hover-darken:hover {
@@ -122,8 +123,8 @@
     padding-left: 12px;
     padding-right: 12px;
     border-radius: 8px;
-    background-color: var(--dark-t);
-    color: rgb(160, 160, 160);
+    background-color: gray;
+    color: var(--bright);
     font-weight: bold;
     width: fit-content;
 }
