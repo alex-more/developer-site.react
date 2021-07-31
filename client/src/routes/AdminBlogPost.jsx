@@ -51,53 +51,57 @@ const AdminBlogPost = (props) => {
     };
 
     return (
-        <div className="container-fluid">
+        <div className="d-flex flex-column pageContainer">
             <Navbar />
-            <h2 className="text-center my-4">Edit Post</h2>
-            <div className="card-block">
-                        <form action="">
-                            <div className="form-group my-2">
-                                <label htmlFor="title">Title</label>
-                                <input
-                                    value={title}
-                                    id="title"
-                                    onChange={(e) => setTitle(e.target.value)}
-                                    type="text"
-                                    className="form-control"
-                                />
-                            </div>
-                            <div className="form-group my-2">
-                            <label htmlFor="category">Category</label>
-                                <input
-                                    value={category}
-                                    id="category"
-                                    onChange={(e) => setCategory(e.target.value)}
-                                    type="text"
-                                    className="form-control"
-                                />
-                            </div>
-                            <div className="form-group my-2">
-                            <label htmlFor="content">Content</label>
-                                <textarea
-                                    value={content}
-                                    id="content"
-                                    onChange={(e) => setContent(e.target.value)}
-                                    type="text"
-                                    className="form-control mb-4"
-                                />
-                            </div>
-                            
-                            <button onClick={handleSubmit} type="submit" className="btn btn-primary">
-                                APPLY
+            <div className="container-fluid">
+                <h2 className="text-center my-4">Edit Post</h2>
+                <div className="card-block">
+                    <form action="">
+                        <div className="form-group my-2">
+                            <label htmlFor="title">Title</label>
+                            <input
+                                value={title}
+                                id="title"
+                                onChange={(e) => setTitle(e.target.value)}
+                                type="text"
+                                className="form-control"
+                            />
+                        </div>
+                        <div className="form-group my-2">
+                        <label htmlFor="category">Category</label>
+                            <input
+                                value={category}
+                                id="category"
+                                onChange={(e) => setCategory(e.target.value)}
+                                type="text"
+                                className="form-control"
+                            />
+                        </div>
+                        <div className="form-group my-2">
+                        <label htmlFor="content">Content</label>
+                            <textarea
+                                value={content}
+                                id="content"
+                                onChange={(e) => setContent(e.target.value)}
+                                type="text"
+                                className="form-control mb-4"
+                                rows="19"
+                            />
+                        </div>
+                        
+                        <button onClick={handleSubmit} type="submit" className="btn btn-primary">
+                            APPLY
+                        </button>
+                        
+                        <Link to="/admin/blog">
+                            <button className="btn btn-secondary mx-2">
+                                CANCEL
                             </button>
-                            
-                            <Link to="/admin/blog">
-                                <button className="btn btn-secondary mx-2">
-                                    CANCEL
-                                </button>
-                            </Link>
-                        </form>
-                    </div>
+                        </Link>
+                    </form>
+                </div>
+            </div>
+            
             <Footer />
         </div>
     )

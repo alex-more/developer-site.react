@@ -47,17 +47,23 @@ const ProjectPeek = (props) => {
     }
 
     return (
-        <div className="card hover-darken my-3">
-            <a className="card-block stretched-link text-decoration-none link-dark p-3" href={repoUrl}>
-                <h5 className="card-title">{props.repo}</h5>
-                {readme && readme.split("\n").map(function(item) {
-                    return (
-                        <span key={++keygen}>
-                            {item}
-                            <br />
-                        </span>
-                    )
-                })}
+        <div className="card hover-darken my-4">
+            <a className="card-block stretched-link text-decoration-none link-dark" href={repoUrl}>
+                <div className="card-header">
+                    <h5 className="card-title project-title">{props.repo}</h5>
+                </div>
+
+                <div className="p-3">
+                    {readme && readme.split("\n").map(function(item) {
+                        return (
+                            <span key={++keygen}>
+                                {item}
+                                <br />
+                            </span>
+                        )
+                    })}
+                </div>
+                
             </a>
         </div>
     )

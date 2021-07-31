@@ -34,42 +34,51 @@ const Login = () => {
     };
 
     return (
-        <div className="container-fluid">
+        <div className="d-flex flex-column pageContainer">
+            
             <Navbar />
-            <h2 className="text-center m-4">Admin Login</h2>
 
-            <form className="m-2" action="">
-                            <div className="form-group">
-                                <label htmlFor="username">Username</label>
-                                <input
-                                    value={username}
-                                    id="username"
-                                    onChange={(e) => setUsername(e.target.value)}
-                                    type="text"
-                                    className="form-control"
-                                />
-                            </div>
-                            <div className="form-group my-2">
-                            <label htmlFor="password">Password</label>
-                                <input
-                                    value={password}
-                                    id="password"
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    type="password"
-                                    className="form-control"
-                                />
-                            </div>
-                            
-                            <button onClick={handleLogin} type="submit" className="btn btn-primary">
-                                LOG IN
-                            </button>
-                            
-                            <Link to="/">
-                                <button className="btn btn-secondary mx-2">
-                                    CANCEL
-                                </button>
-                            </Link>
-                        </form>
+            <div className="container-fluid login">
+                <br />
+                <br />
+                <br />
+
+                <h2 className="text-center m-5">Admin Login</h2>
+
+                <form className="m-2" action="">
+                    <div className="form-group">
+                        <label htmlFor="username">Username</label>
+                        <input
+                            value={username}
+                            id="username"
+                            onChange={(e) => setUsername(e.target.value)}
+                            type="text"
+                            className="form-control"
+                        />
+                    </div>
+                    <div className="form-group my-2">
+                    <label htmlFor="password">Password</label>
+                        <input
+                            value={password}
+                            id="password"
+                            onChange={(e) => setPassword(e.target.value)}
+                            type="password"
+                            className="form-control"
+                        />
+                    </div>
+                    
+                    <button onClick={handleLogin} type="submit" className="btn btn-primary my-3">
+                        LOG IN
+                    </button>
+                    
+                    <Link to="/">
+                        <button className="btn btn-secondary mx-2">
+                            CANCEL
+                        </button>
+                    </Link>
+                </form>
+            </div>
+            
             <Footer />
         </div>
     )

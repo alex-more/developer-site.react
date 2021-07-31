@@ -37,17 +37,23 @@ const AdminBlogEditor = (props) => {
     }, [])
 
     return (
-        <div className="container-fluid">
+        <div className="d-flex flex-column pageContainer">
             <Navbar />
-            <h2 className="text-center m-4">All Blog Posts</h2>
 
-            <a className="btn btn-primary mt-2" href="/admin/blog/new">NEW POST</a>
-            
-            {blogPosts.map(post => {
-                return (
-                    <AdminBlogPeek post={post} key={post.id}/> 
-                )
-            })}
+            <div className="container-fluid">
+                <div className="adminblog mb-5">
+                    <h2 className="text-center m-4">All Blog Posts</h2>
+
+                    <a className="btn btn-primary mt-4" href="/admin/blog/new">NEW POST</a>
+
+                    {blogPosts.map(post => {
+                        return (
+                            <AdminBlogPeek post={post} key={post.id}/> 
+                        )
+                    })}
+                </div>
+                
+            </div>
 
             <Footer />
         </div>

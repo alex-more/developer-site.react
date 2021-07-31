@@ -46,10 +46,12 @@ const AdminBlogNew = (props) => {
     };
 
     return (
-        <div className="container-fluid">
+        <div className="d-flex flex-column pageContainer">
             <Navbar />
-            <h2 className="my-4 text-center">New Post</h2>
-            <div className="card-block">
+            <div className="container-fluid">
+                <div className="adminblog">
+                    <h2 className="my-4 text-center">New Post</h2>
+                    <div className="card-block">
                         <form action="">
                             <div className="form-row my-2">
                                 <label htmlFor="title">Title</label>
@@ -79,6 +81,7 @@ const AdminBlogNew = (props) => {
                                     onChange={(e) => setContent(e.target.value)}
                                     type="text"
                                     className="form-control mb-4"
+                                    rows="19"
                                 />
                             </div>
                             <Link to="/admin/blog">
@@ -93,6 +96,9 @@ const AdminBlogNew = (props) => {
                             </Link>
                         </form>
                     </div>
+                </div>
+            </div>
+            
             <Footer />
         </div>
     )

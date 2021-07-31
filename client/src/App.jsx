@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import Home from "./routes/Home"
 import BlogPage from "./routes/BlogPage"
 import BlogPost from "./routes/BlogPost"
+import AboutMe from "./routes/AboutMe"
 import Login from "./routes/Login"
 import AdminBlogEditor from './routes/AdminBlogEditor'
 import AdminBlogPost from './routes/AdminBlogPost'
@@ -16,6 +17,7 @@ const App = () => {
             <Router>
                 <Switch>
                     <Route exact path="/" component={Home}/>
+                    <Route exact path="/about" component={AboutMe}/>
                     <Route exact path="/projects" component={Projects}/>
                     <Route exact path="/blog" component={BlogPage}/>
                     <Route exact path="/blog/:id" component={BlogPost}/>

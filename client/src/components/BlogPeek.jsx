@@ -5,7 +5,7 @@ const BlogPeek = (props) => {
 
     let shortened = "";
     if(props.post.content) {
-        shortened = props.post.content.substring(0, 120);
+        shortened = props.post.content.substring(0, 200);
     }
 
     let postId = ""
@@ -16,12 +16,14 @@ const BlogPeek = (props) => {
     }
 
     return (
-        <div className="card hover-darken my-3">
-            <div className="card-header text-end">
-                {props.post.category}
+        <div className="blogpeek card hover-darken m-3">
+            <div className="card-header">
+                <div className="right-align">
+                    <h6 className="category-peek text-end">{props.post.category}</h6>
+                </div>
+                <h4 className="card-title blog-title">{props.post.title}</h4>
             </div>
             <a className="card-block stretched-link text-decoration-none link-dark p-3" href={postUrl}>
-                <h5 className="card-title">{props.post.title}</h5>
                 <p className="card-text">{shortened}</p>
             </a>
         </div>

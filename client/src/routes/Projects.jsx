@@ -34,34 +34,23 @@ const Projects = () => {
         return 0;
     }
 return (
-    <>
-    <Navbar />
+    <div className="d-flex flex-column pageContainer">
+        <Navbar />
 
-    {projects && projects.map(project => {
-        return (
-            <ProjectPeek repo={project.name} url={project.html_url} key={project.name}/> 
-        )
-    })}
-
-    <Footer />
-    </>
-
-)
-    /*
-    return (
         <div className="container-fluid">
-            <Navbar />
-            <h2 className="text-center m-4">All Blog Posts</h2>
-
-            {blogPosts.map(project => {
-                return (
-                    <ProjectPeek project={project} key={project.id}/> 
-                )
-            })}
-
-            <Footer />
+            <div className="project-preview mb-5">
+                <h2 className="text-center m-5">Github Projects</h2>
+                {projects && projects.map(project => {
+                    return (
+                        <ProjectPeek repo={project.name} url={project.html_url} key={project.name}/> 
+                    )
+                })}
+            </div>
         </div>
-    )*/
+
+        <Footer />
+    </div>
+)
 }
 
 export default Projects

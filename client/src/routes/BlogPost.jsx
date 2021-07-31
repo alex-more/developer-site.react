@@ -27,14 +27,16 @@ const BlogPost = (props) => {
     }, [])
 
     return (
-        <div className="container-fluid">
+        <div className="d-flex flex-column pageContainer">
             <Navbar />
 
-                <div className="card-block">
-                    <h2 className="text-center m-4">{blogPost && blogPost.title}</h2>
-                    <h5 className="text-center m-4">Category : {blogPost && blogPost.category}</h5>
-                    <p className="card-content text-center">{blogPost && blogPost.content}</p>
-                </div>
+            <div className="container-fluid blogpost">
+                <h6 className="my-5 category">{blogPost && blogPost.category}</h6>
+                <h1 className="my-5 bigtext">{blogPost && blogPost.title}</h1>
+                <br />
+                <br />
+                <p className="card-content text-justify">{blogPost && blogPost.content}</p>
+            </div>
 
             <Footer />
         </div>

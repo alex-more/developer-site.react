@@ -22,15 +22,23 @@ const BlogPage = () => {
     }, [])
 
     return (
-        <div className="container-fluid">
+        <div className="d-flex flex-column pageContainer">
             <Navbar />
-            <h2 className="text-center m-4">All Blog Posts</h2>
 
-            {blogPosts.map(post => {
-                return (
-                    <BlogPeek post={post} key={post.id}/> 
-                )
-            })}
+            <div className="container-fluid">
+            <br />
+
+                <h2 className="text-center m-4">All Blog Posts</h2>
+                <div className="blog-preview mb-5">
+                    
+                    {blogPosts.map(post => {
+                        return (
+                            <BlogPeek post={post} key={post.id}/> 
+                        )
+                    })}
+                </div>
+
+            </div>
 
             <Footer />
         </div>

@@ -34,12 +34,14 @@ const AdminBlogPeek = (props) => {
     }
 
     return (
-        <div className="card my-3">
-            <div className="card-header text-end">
-                {props.post.category}
+        <div className="card my-3 text-dark">
+            <div className="card-header">
+                <div className="right-align">
+                    <h6 className="category-peek text-end">{props.post.category}</h6>
+                </div>
+                <h4 className="card-title">{props.post.title}</h4>
             </div>
             <div className="card-block p-3">
-                <h5 className="card-title">{props.post.title}</h5>
                 <p className="card-text">{shortened}</p>
                 <a href={"/admin/blog/" + postId} className="btn btn-warning">EDIT</a>
                 <button className="btn btn-danger mx-2" onClick={() => handleDelete()}>DELETE</button>

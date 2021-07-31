@@ -97,7 +97,7 @@ app.get('/api/blog', async (req, res) => {
 app.get('/api/blog/peek/:count', async (req, res) => {
     
     try {
-        const results = await db.query("SELECT * FROM blog LIMIT $1",
+        const results = await db.query("SELECT * FROM blog ORDER BY post_date DESC LIMIT $1",
         [req.params.count])
         res.status(200).json({
             status: "success",
