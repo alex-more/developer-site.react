@@ -12,6 +12,13 @@ app.use(express.json())
 
 const username = process.env.GITUSER;
 
+/** -----------------------------------
+ * 
+ *          GITHUB API PROXY
+ *
+ *  -----------------------------------
+ */
+
 // For Github API calls
 let gitOptions = {
     host: 'api.github.com',
@@ -20,26 +27,13 @@ let gitOptions = {
     headers: {'user-agent': 'node.js'}
 }
 
-// For Readme API calls
+// For Readme (raw content) API calls
 let readmeOptions = {
     method: 'GET',
     headers: {'user-agent': 'node.js'}
 }
 
-app.get('/', (req, res) => {
-    res.send('Homepage here')
-})
-
-// Check if user is logged in
-app.get('/api/blog/admin/authenticate', verifyToken, (req, res) => {
-    if(req.valid == false) {
-        return res.status(200).json({ status: "failure" });
-    }
-        
-    res.status(200).json({ status: "success" });
-})
-
-// Github API Request to list all repos of user
+// List all Github repos of user
 app.get('/api/github/:user', (req, res) => {
     
     let request = https.request(gitOptions, function(response) {
@@ -55,7 +49,7 @@ app.get('/api/github/:user', (req, res) => {
     request.end();
 })
 
-// Github API Request for readme of specific repo
+// Get raw content of the README.md file of a Github repository
 app.get('/api/readme/:repo', (req, res) => {
 
     let request = https.request(`https://raw.githubusercontent.com/${username}/${req.params.repo}/master/README.md`, 
@@ -74,7 +68,14 @@ app.get('/api/readme/:repo', (req, res) => {
     request.end();
 })
 
-// Blog routes
+/** --------------------------------------
+ * 
+ *              BLOG API
+ *
+ *  --------------------------------------
+ */
+
+// Get all blogs
 app.get('/api/blog', async (req, res) => {
     try {
         const results = await db.query('SELECT * FROM blog ORDER BY post_date DESC')
@@ -90,7 +91,7 @@ app.get('/api/blog', async (req, res) => {
     }
 })
 
-// Get subset of rows
+// Get only a certain number of blogs (count)
 app.get('/api/blog/peek/:count', async (req, res) => {
     
     try {
@@ -108,7 +109,7 @@ app.get('/api/blog/peek/:count', async (req, res) => {
     }
 })
 
-//Create new blog entry
+// Create new blog entry
 app.post('/api/blog', verifyToken, async (req, res) => {
     if(req.valid == false) {
         return res.status(401);
@@ -130,7 +131,7 @@ app.post('/api/blog', verifyToken, async (req, res) => {
     }
 })
 
-//Modify blog entry
+// Modify existing blog entry
 app.put('/api/blog/:id', verifyToken, async (req, res) => {
     if(req.valid == false) {
         return res.status(401)
@@ -152,7 +153,7 @@ app.put('/api/blog/:id', verifyToken, async (req, res) => {
     }
 })
 
-// Show full blog entry
+// Show a full blog entry
 app.get('/api/blog/:id', async (req, res) => {
     try {
         const result = await db.query("SELECT * FROM blog WHERE id=$1", [req.params.id])
@@ -173,7 +174,7 @@ app.get('/api/blog/:id', async (req, res) => {
     }
 })
 
-// Delete blog entry
+// Delete a blog entry
 app.delete('/api/blog/:id', verifyToken, async (req, res) => {
     if(req.valid == false) {
         return res.status(401);
@@ -195,25 +196,30 @@ app.delete('/api/blog/:id', verifyToken, async (req, res) => {
     }
 })
 
-// Project/Git routes
-app.get('/api/projects', async (req, res) => {
-    res.send('Git projects here')
-})
+/** --------------------------------------
+ * 
+ *  LOGIN, AUTHENTICATION AND ENCRYPTION
+ *
+ *  --------------------------------------
+ */
 
-// Create user if no user yet
+
+// Creates user if no user exists yet 
+// (this should only be the case when you first run this server)
 app.post('/api/users', async (req, res) => {
-    // 1. Check if a user exists in DB already
+    
+    // Check if a user exists in DB already
     try {
         const userCount = await db.query('SELECT COUNT(*) FROM users')
 
-        // 2. If not, then create user based on contents of .env
+        // If not, then create user based on contents of .env
         let username = process.env.CUSER;
         let password = process.env.CPASSWORD;
 
         // Hash password using bcrypt
         const hashedPassword = await bcrypt.hash(password, 10)
 
-        // 3. Store that user in DB
+        // Store that user in DB
         if(userCount.rows[0].count == 0) {
             await db.query("INSERT INTO users (Username, Password) values ($1, $2) returning *", 
             [username, hashedPassword])
@@ -225,9 +231,18 @@ app.post('/api/users', async (req, res) => {
     }
 })
 
+// Check if user is logged in (used to protect certain admin routes)
+app.get('/api/blog/admin/authenticate', verifyToken, (req, res) => {
+    if(req.valid == false) {
+        return res.status(200).json({ status: "failure" });
+    }
+        
+    res.status(200).json({ status: "success" });
+})
+
 // Login route
 app.post('/api/login', async (req, res) => {
-    // 1. Validate credentials with bcrypt
+    // Validate credentials with bcrypt
     try {
         let validCredentials = false;
         const pass = await db.query('SELECT password FROM users WHERE username=$1', 
@@ -243,7 +258,7 @@ app.post('/api/login', async (req, res) => {
             return res.status(200).json({ accessToken: 'invalid_token' })
         }
 
-        // 2. Generate a jsonwebtoken
+        // Generate a Json Web Token
         if (validCredentials) {
             const user = { name: req.body.username }
             const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20h' })
@@ -275,6 +290,7 @@ function verifyToken(req, res, next) {
     })
 }
 
+// ---- Opening port ----
 const port = process.env.PORT
 app.listen(port, () => {
     console.log(`server is up, listening on port ${port}`)

@@ -4,9 +4,6 @@ import ReadmeAPI from '../apis/ReadmeAPI'
 
 const ProjectPeek = (props) => {
 
-    // IF there is a README, then make a shorter version of it, otherwise
-    // display default message "No README available at this time."
-
     let keygen = 0; // This is just to avoid a warning message
 
     let repoName = ""
@@ -23,7 +20,11 @@ const ProjectPeek = (props) => {
         const fetchData = async () => {
             try {
                 const response = await ReadmeAPI.get(repoName)
-                setReadme(shorten(response.data.data))
+                if(response) {
+                    setReadme(shorten(response.data.data))
+                } else {
+                    setReadme("Project does not have a README file.")
+                }
             } catch (err) {
                 console.log(err)
             }
@@ -37,7 +38,7 @@ const ProjectPeek = (props) => {
         if(text) {
             shortened = text.substring(0, 360);
             if(text.length !== shortened.length) {
-                shortened = shortened + " ...\n(Click for more details)"
+                shortened = shortened + " ...\n\n(Click for more details)"
             }
         }
         return shortened;
