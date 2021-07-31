@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "dev-start": "concurrently --kill-others \"npm --prefix ./client start\" \"nodemon server.js\""
   },
   "repository": {
     "type": "git",
@@ -23,9 +24,11 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "pg": "^8.6.0"
+    "pg": "^8.6.0",
+    "serve": "^12.0.0"
   },
   "devDependencies": {
+    "concurrently": "^6.2.0",
     "nodemon": "^2.0.7"
   }
 }

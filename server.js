@@ -6,6 +6,7 @@ const db = require("./db")
 const bcrypt = require('bcrypt')
 const jwt = require("jsonwebtoken")
 const https = require("https")
+const path = require('path')
 
 app.use(cors())
 app.use(express.json())
