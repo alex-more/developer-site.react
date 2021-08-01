@@ -21,7 +21,7 @@ Libraries and other key features:
 
 Clone or download the project, then run 'npm install' in root folder.
 Then, go to folder called 'client' and run 'npm install' there as well.
-You may need to run 'npm install nodemon' and 'npm install concurrently' also if you don't have them.
+You may need to run 'npm install concurrently' also if you don't have it before you can run the app.
 
 Before running this as your website, you will need to change some variables in 2 files to suit your needs. In the root folder, you need to create a file called '.env' and put variables that match your credentials there. Here is an image that explains the variables you need :
 

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server.js",
-    "dev-start": "concurrently --kill-others \"npm --prefix ./client start\" \"nodemon server.js\""
+    "dev-start": "concurrently --kill-others \"npm --prefix ./client start\" \"node server.js\""
   },
   "repository": {
     "type": "git",
