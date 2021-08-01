@@ -6,20 +6,13 @@ const ProjectPeek = (props) => {
 
     let keygen = 0; // This is just to avoid a warning message
 
-    let repoName = ""
-    let repoUrl = ""
-    if(props.repo) {
-        repoName = props.repo;
-        repoUrl = props.url;
-    }
-
     const [readme, setReadme] = useState();
 
     useEffect(() => {
         // Gives me list of all repos
         const fetchData = async () => {
             try {
-                const response = await ReadmeAPI.get(repoName)
+                const response = await ReadmeAPI.get(props.repo)
                 if(response) {
                     setReadme(shorten(response.data.data))
                 } else {
@@ -31,28 +24,32 @@ const ProjectPeek = (props) => {
         }
 
         fetchData()
-    }, [repoName])
+    }, [props.repo])
 
+    // If the first line of the README contains the title of the repo (like #my-website),
+    // then the first 2 lines will be skipped to save space.
     function shorten(text) {
-        let shortened = "";
-        if(text) {
-            shortened = text.substring(0, 360);
-            if(text.length !== shortened.length) {
-                shortened = shortened + " ...\n\n(Click for more details)"
-            }
+        
+        let shortText = text.split("\n");
+
+        if (shortText[0].includes(props.repo)) {
+            shortText = shortText.slice(2,10)
+        } else {
+            shortText = shortText.slice(0,8)
         }
-        return shortened;
+
+        return shortText;
     }
 
     return (
         <div className="card hover-darken my-4">
-            <a className="card-block stretched-link text-decoration-none link-dark" href={repoUrl}>
+            <a className="card-block stretched-link text-decoration-none link-dark" href={props.url}>
                 <div className="card-header">
                     <h5 className="card-title project-title">{props.repo}</h5>
                 </div>
 
                 <div className="p-3">
-                    {readme && readme.split("\n").map(function(item) {
+                    {readme && readme.map(function(item) {
                         return (
                             <span key={++keygen}>
                                 {item}
