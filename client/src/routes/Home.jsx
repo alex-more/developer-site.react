@@ -15,12 +15,12 @@ const Home = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await BlogAPI.get("/peek/3")
-                setBlogPosts(response.data.data.blog)
-
                 const projects = await GithubAPI.get()
                 projects.data.sort(compareDates)
                 setProjects(projects.data.slice(0, 4))
+
+                const response = await BlogAPI.get("/peek/3")
+                setBlogPosts(response.data.data.blog)
             } catch (err) {
                 console.log(err)
             }

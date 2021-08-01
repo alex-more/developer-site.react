@@ -204,34 +204,6 @@ app.delete('/api/blog/:id', verifyToken, async (req, res) => {
  *  --------------------------------------
  */
 
-
-// Creates user if no user exists yet 
-// (this should only be the case when you first run this server)
-app.post('/api/users', async (req, res) => {
-    
-    // Check if a user exists in DB already
-    try {
-        const userCount = await db.query('SELECT COUNT(*) FROM users')
-
-        // If not, then create user based on contents of .env
-        let username = process.env.CUSER;
-        let password = process.env.CPASSWORD;
-
-        // Hash password using bcrypt
-        const hashedPassword = await bcrypt.hash(password, 10)
-
-        // Store that user in DB
-        if(userCount.rows[0].count == 0) {
-            await db.query("INSERT INTO users (Username, Password) values ($1, $2) returning *", 
-            [username, hashedPassword])
-        }
-
-        res.status(200);
-    } catch (err) {
-        res.status(400);
-    }
-})
-
 // Check if user is logged in (used to protect certain admin routes)
 app.get('/api/blog/admin/authenticate', verifyToken, (req, res) => {
     if(req.valid == false) {
@@ -291,8 +263,43 @@ function verifyToken(req, res, next) {
     })
 }
 
-// ---- Opening port ----
+// ---- Startup / DB Setup ----
 const port = process.env.PORT
-app.listen(port, () => {
+
+app.listen(port, async () => {
     console.log(`server is up, listening on port ${port}`)
+    try {
+        // Check if table 'blog' exists already, if not then create it
+        const blogTableCount = await db.query("SELECT COUNT(*) FROM information_schema.tables WHERE table_name='blog'")
+
+        if(blogTableCount.rows[0].count == 0) {
+            await db.query('CREATE TABLE blog (id SERIAL, title varchar(120) NOT NULL, category varchar(60) NOT NULL, content TEXT NOT NULL, post_date date NOT NULL DEFAULT CURRENT_DATE)')
+        }
+
+        // Check if users table exists in DB already, otherwise create it
+        const userTableCount = await db.query("SELECT COUNT(*) FROM information_schema.tables WHERE table_name='users'")
+
+        if(userTableCount.rows[0].count == 0) {
+            await db.query('CREATE TABLE users ( username varchar(40) NOT NULL, password text NOT NULL)')
+        }
+
+        // Check if a user exists in DB already
+        const userCount = await db.query('SELECT COUNT(*) FROM users')
+
+        // If not, then create user based on contents of .env
+        let username = process.env.CUSER;
+        let password = process.env.CPASSWORD;
+
+        // Hash password using bcrypt
+        const hashedPassword = await bcrypt.hash(password, 10)
+
+        // Store that user in DB
+        if(userCount.rows[0].count == 0) {
+            await db.query("INSERT INTO users (Username, Password) values ($1, $2) returning *", 
+            [username, hashedPassword])
+        }
+
+    } catch (err) {
+        console.log(err)
+    }
 })
