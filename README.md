@@ -21,7 +21,6 @@ Libraries and other key features:
 
 Clone or download the project, then run 'npm install' in root folder.
 Then, go to folder called 'client' and run 'npm install' there as well.
-You may need to run 'npm install concurrently' also if you don't have it before you can run the app.
 
 Before running this as your website, you will need to change some variables in 2 files to suit your needs. In the root folder, you need to create a file called '.env' and put variables that match your credentials there. Here is an example that explains the variables you need :
 
@@ -47,9 +46,9 @@ ACCESS_TOKEN_SECRET=your_secret_token
 REFRESH_TOKEN_SECRET=your_other_secret_token
 ```
 
-Then, in the client/src folder, you should edit the 'config.json' file to match your github username and the port that your backend server will run on.
+Then, in the client/src folder, you should edit the 'config.json' file to match your github username and the ip/port that your backend server will run on.
 
-To use the blogging feature of this app, you will need a local PostgreSQL server with a database that matches the name of the .env variable 'PGDATABASE'. The app itself will create the tables and the user needed for the blog management on startup. You also need to make sure that 'PGUSER' and 'PGPASSWORD' match an existing user for the Postgres server.
+To use the blogging feature of this app, you will need a local PostgreSQL server with a database that matches the name of the .env variable 'PGDATABASE' on the machine where the Express backend is running. The app itself will create the tables and the user needed for the blog management on startup. You also need to make sure that 'PGUSER' and 'PGPASSWORD' match an existing user for the Postgres server.
 
 When you have the user setup and both environment variable files setup, you are ready to run the program. To run it, simply type 'npm run dev-start' in root of project folder.
 
