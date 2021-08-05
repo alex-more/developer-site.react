@@ -7,7 +7,8 @@ const AdminBlogPeek = (props) => {
 
     let shortened = "";
     if(props.post.content) {
-        shortened = props.post.content.substring(0, 120);
+        shortened = props.post.content.substring(0, 360);
+	shortened = shortened + " (...)"
     }
 
     let postId = ""

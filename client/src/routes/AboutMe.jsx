@@ -19,7 +19,7 @@ const AboutMe = () => {
                         <br /><br />
                         These days I am working on an AWS certification, and improving my web skills, with a focus on PostgreSQL, React, and Node.js.
                         <br /><br />
-                        If you have something in mind, you can always message me at alexj.moren@gmailcom
+                        If you have something in mind, you can always message me at alexmore.tech@gmail.com
                     </h5>
                 </div>
             </div>
