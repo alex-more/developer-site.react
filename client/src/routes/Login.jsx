@@ -25,7 +25,7 @@ const Login = () => {
                 if(window.localStorage.getItem('token') === 'invalid_token') {
                     history.go(0)
                 } else {
-                    history.push("/admin/blog");
+                    history.push("/adminblog");
                 }
             }
         } catch (err) {

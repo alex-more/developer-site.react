@@ -12,8 +12,8 @@ const Projects = () => {
         // Gives me list of all repos
         const fetchData = async () => {
             try {
-                const response = await GithubAPI.get()
-                response.data.sort(compareDates)
+		const response = await GithubAPI.get()
+		response.data.sort(compareDates)
                 setProjects(response.data)
             } catch (err) {
                 console.log(err)

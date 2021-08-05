@@ -19,7 +19,7 @@ const AdminBlogNew = (props) => {
 
         const checkLogin = async () => {
             try {
-                await BlogAPI.get("/admin/authenticate", 
+                await BlogAPI.get("admin/authenticate", 
                 { headers: {'Authorization': "Bearer " + window.localStorage.getItem('token')} })
             } catch (err) {
                 history.push('/')
@@ -39,7 +39,7 @@ const AdminBlogNew = (props) => {
             });
 
             addBlogPosts(response.data.data.blogPost)
-            history.push("/admin/blog");
+            history.push("/adminblog");
         } catch (err) {
             console.log(err)
         }

@@ -42,7 +42,7 @@ const AdminBlogPeek = (props) => {
             </div>
             <div className="card-block p-3">
                 <p className="card-text">{shortened}</p>
-                <a href={"/admin/blog/" + postId} className="btn btn-warning">EDIT</a>
+                <a href={"/adminblog/" + postId} className="btn btn-warning">EDIT</a>
                 <button className="btn btn-danger mx-2" onClick={() => handleDelete()}>DELETE</button>
             </div>
         </div>

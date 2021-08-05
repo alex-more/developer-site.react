@@ -11,7 +11,19 @@ const path = require('path')
 app.use(cors())
 app.use(express.json())
 
+// Fix annoying CORS errors
+app.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+});
+
 const username = process.env.GITUSER;
+
+// Useful to quickly test if you have access to the server.
+app.get('/', (req, res, next) => {
+	res.send('~ API is working properly! ~');
+})
 
 /** -----------------------------------
  * 
@@ -36,7 +48,7 @@ let readmeOptions = {
 
 // List all Github repos of user
 app.get('/api/github/:user', (req, res) => {
-    
+   
     let request = https.request(gitOptions, function(response) {
         let body = '';
         response.on("data", function(chunk){

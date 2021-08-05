@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
+    "demonize": "nodemon server.js", 
     "dev-start": "concurrently --kill-others \"npm --prefix ./client start\" \"node server.js\""
   },
   "repository": {
@@ -29,6 +30,6 @@
   },
   "devDependencies": {
     "concurrently": "^6.2.0",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.12"
   }
 }

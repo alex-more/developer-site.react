@@ -22,9 +22,9 @@ const App = () => {
                     <Route exact path="/blog" component={BlogPage}/>
                     <Route exact path="/blog/:id" component={BlogPost}/>
                     <Route exact path="/login" component={Login}/>
-                    <Route exact path="/admin/blog" component={AdminBlogEditor}/>
-                    <Route exact path="/admin/blog/new" component={AdminBlogNew}/>
-                    <Route exact path="/admin/blog/:id" component={AdminBlogPost}/>
+                    <Route exact path="/adminblog" component={AdminBlogEditor}/>
+                    <Route exact path="/adminblog/new" component={AdminBlogNew}/>
+                    <Route exact path="/adminblog/:id" component={AdminBlogPost}/>
                 </Switch>
             </Router>
         </BlogContextProvider>

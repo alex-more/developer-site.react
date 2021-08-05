@@ -15,10 +15,10 @@ const AdminBlogEditor = (props) => {
 
         const checkLogin = async () => {
             try {
-                await BlogAPI.get("/admin/authenticate", 
+                await BlogAPI.get("admin/authenticate", 
                 { headers: {'Authorization': "Bearer " + window.localStorage.getItem('token')} })
             } catch (err) {
-                history.push('/')
+		history.push('/')
             }
         }
 
@@ -43,7 +43,7 @@ const AdminBlogEditor = (props) => {
                 <div className="adminblog mb-5">
                     <h2 className="text-center m-4">All Blog Posts</h2>
 
-                    <a className="btn btn-primary mt-4" href="/admin/blog/new">NEW POST</a>
+                    <a className="btn btn-primary mt-4" href="/adminblog/new">NEW POST</a>
 
                     {blogPosts.map(post => {
                         return (

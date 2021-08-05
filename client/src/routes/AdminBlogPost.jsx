@@ -20,14 +20,12 @@ const AdminBlogPost = (props) => {
 
         const checkLogin = async () => {
             try {
-                await BlogAPI.get("/admin/authenticate", 
+                await BlogAPI.get("admin/authenticate", 
                 { headers: {'Authorization': "Bearer " + window.localStorage.getItem('token')} })
             } catch (err) {
                 history.push('/')
             }
         }
-        
-        // FIXME: Program crashes when going to localhost:3000/admin/blog/:ANYTHING
         
         const fetchData = async () => {
             const response = await BlogAPI.get(`/${id}`)
@@ -49,7 +47,7 @@ const AdminBlogPost = (props) => {
             content
         });
         
-        history.push("/admin/blog");
+        history.push("/adminblog");
     };
 
     const handleDelete = async () => {
@@ -110,13 +108,13 @@ const AdminBlogPost = (props) => {
                                 APPLY
                             </button>
                             
-                            <Link to="/admin/blog">
+                            <Link to="/adminblog">
                                 <button className="btn btn-secondary mx-2">
                                     CANCEL
                                 </button>
                             </Link>
                             
-                            <Link to="/admin/blog">
+                            <Link to="/adminblog">
                                 <button className="btn btn-danger mx-2" onClick={() => handleDelete()}>DELETE</button>
                             </Link>
                         </form>
