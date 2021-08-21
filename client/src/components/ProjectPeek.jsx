@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import '../styles.css';
 import ReadmeAPI from '../apis/ReadmeAPI'
 
+const config = require('../config.json');
+
 const ProjectPeek = (props) => {
 
     let keygen = 0; // This is just to avoid a warning message
@@ -13,6 +15,7 @@ const ProjectPeek = (props) => {
         const fetchData = async () => {
             try {
                 const response = await ReadmeAPI.get(props.repo)
+
                 if(response) {
                     setReadme(shorten(response.data.data))
                 } else {
@@ -42,24 +45,30 @@ const ProjectPeek = (props) => {
     }
 
     return (
-        <div className="card hover-darken my-4">
-            <a className="card-block stretched-link text-decoration-none link-dark" href={props.url}>
-                <div className="card-header">
-                    <h5 className="card-title project-title">{props.repo}</h5>
+        <div>
+            <div className="card cardHeader">
+                <div className="card-block">
+                    <div className="card-header">
+                        <h5 className="card-title">{props.repo}</h5>
+                    </div>
                 </div>
+            </div>
 
-                <div className="p-3">
-                    {readme && readme.map(function(item) {
-                        return (
-                            <span key={++keygen}>
-                                {item}
-                                <br />
-                            </span>
-                        )
-                    })}
-                </div>
-                
-            </a>
+            <div className="card mb-4 hover-brighten" style={{backgroundImage: `url("https://raw.githubusercontent.com/${config.github_username}/${props.repo}/main/preview.jpg")`, backgroundSize: "cover", zIndex: 0 }}>
+                <a className="card-block stretched-link text-decoration-none link-dark" href={props.url}>
+
+                    <div className="p-3 cardContent">
+                        {readme && readme.map(function(item) {
+                            return (
+                                <span key={++keygen}>
+                                    {item}
+                                    <br />
+                                </span>
+                            )
+                        })}
+                    </div>
+                </a>
+            </div>
         </div>
     )
 }

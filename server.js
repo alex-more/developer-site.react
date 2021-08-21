@@ -8,6 +8,7 @@ const jwt = require("jsonwebtoken")
 const https = require("https")
 const path = require('path')
 
+app.use('/static', express.static('assets'))
 app.use(cors())
 app.use(express.json())
 

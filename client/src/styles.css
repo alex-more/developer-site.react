@@ -8,13 +8,43 @@
 }
 
 .hover-darken:hover {
-    filter:brightness(85%);
+    filter: brightness(85%);
     border: 1px solid var(--highlight);
+}
+
+.hover-brighten:hover {
+    filter: brightness(85%);
 }
 
 .pageContainer {
     height: 100vh;
     background-color: var(--dark);
+}
+
+.cardHeader {
+    margin-top: 1.5em;
+    margin-bottom: -0.5em;
+    margin-left: 1px;
+    color: var(--accent);
+    display: inline-block;
+}
+
+.cardContent {
+    color: white;
+    font-weight: bold;
+    opacity: 0.9;
+}
+
+.cardContent::after {
+    content: "";
+    background-color: var(--dark);
+    opacity: 0.8;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
 }
 
 .navbar {
