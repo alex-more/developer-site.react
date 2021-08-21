@@ -17,6 +17,9 @@ Libraries and other key features:
 - axios (make requests to backend server)
 - react-router-dom (for routing to the pages)
 
+## Preview
+![Image Preview](preview.jpg)
+
 ## Installation and Setup guide
 
 Clone or download the project, then run 'npm install' in root folder.
