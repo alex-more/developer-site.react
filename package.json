@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "demonize": "nodemon server.js", 
+    "demonize": "nodemon server.js",
     "dev-start": "concurrently --kill-others \"npm --prefix ./client start\" \"node server.js\""
   },
   "repository": {
@@ -20,6 +20,9 @@
   },
   "homepage": "https://github.com/alex-more/developer-site.react#readme",
   "dependencies": {
+    "@fontsource/roboto": "^4.5.0",
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^4.11.2",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",

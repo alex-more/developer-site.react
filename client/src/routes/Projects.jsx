@@ -40,6 +40,7 @@ return (
         <div className="container-fluid">
             <div className="project-preview mb-5">
                 <h2 className="text-center m-5">Github Projects</h2>
+                <p className="text-center">This is an auto generated list of all my projects on Github.</p>
                 {projects && projects.map(project => {
                     return (
                         <ProjectPeek repo={project.name} url={project.html_url} key={project.name}/> 

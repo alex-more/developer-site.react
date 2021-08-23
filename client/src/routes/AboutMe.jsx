@@ -15,9 +15,9 @@ const AboutMe = () => {
                     <br />
                     <h5 className="text-start">
                         I'm a programmer currently studying Computer Science at UQAM.
-                        My professional interests are web development and data analysis. I also occasionally work on small video games with friends and have some knowledge on image generation and processing, with OpenGL and Python.
-                        <br /><br />
-                        These days I am working on an AWS certification, and improving my web skills, with a focus on PostgreSQL, React, and Node.js.
+                        My main interest is web development, with a preference for the back end.
+                        
+                        These days I am working on improving my portfolio, and learning more about working with cloud technologies.
                         <br /><br />
                         If you have something in mind, you can always message me at alexmore.tech@gmail.com
                     </h5>
