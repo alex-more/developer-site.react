@@ -1,4 +1,4 @@
 {
-    "server_url": "localhost:4500",
+    "server_url": "http://localhost:4000",
     "github_username": "alex-more"
 }
