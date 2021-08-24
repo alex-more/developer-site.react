@@ -2,14 +2,18 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography, Button, Box } from '@material-ui/core'
 
-const Navbar = () => {
+const Navbar = (props) => {
 
     const useStyles = makeStyles((theme) => ({
         root: {
-          flexGrow: 1,
+            flexGrow: 1,
         },
         menuButton: {
-          marginRight: theme.spacing(2),
+            marginRight: theme.spacing(2)
+        },
+        activeMenuButton: {
+            marginRight: theme.spacing(2),
+            color: "#b39ddb"
         },
         title: {
             flexGrow: 1,
@@ -24,31 +28,22 @@ const Navbar = () => {
 
     return (
         <Box className={classes.bar} display="flex">
-                <Typography className={classes.title} variant="h4">
-                    Alex Moreno
-                </Typography>
+            <Typography className={classes.title} variant="h4">
+                Alex Moreno
+            </Typography>
 
-                <Button className={classes.menuButton} href="/">
-                    Home
-                </Button>
-                <Button className={classes.menuButton} href="/projects">
-                    Projects
-                </Button>
-                <Button className={classes.menuButton} href="/about">
-                    About
-                </Button>
+            <Button className={ props.highlight === "home"? classes.activeMenuButton : classes.menuButton } href="/">
+                Home
+            </Button>
+            
+            <Button className={ props.highlight === "about"? classes.activeMenuButton : classes.menuButton } href="/about">
+                About
+            </Button>
+
+            <Button className={ props.highlight === "projects"? classes.activeMenuButton : classes.menuButton } href="/projects">
+                Projects
+            </Button>
         </Box>
-        /*
-        <nav className="navbar navbar-dark text-light mb-4">
-            <h2 className="mx-4">Alex Moreno</h2>
-            <div className="text-end mx-4">
-                <a href="/" className="link-info text-decoration-none m-2">Home</a>
-                <a href="/projects" className="link-info text-decoration-none m-2">Projects</a>
-                <a href="/about" className="link-info text-decoration-none m-2">About</a>
-                <a href="/blog" className="link-info text-decoration-none m-2">Blog</a>
-            </div>
-        </nav>
-        */
     )
 }
 

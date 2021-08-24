@@ -3,7 +3,7 @@ import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
 import FeaturedProject from "../components/FeaturedProject"
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Grid, Typography } from '@material-ui/core'
+import { Box, Container, Grid, Typography } from '@material-ui/core'
 
 const Home = () => {
 
@@ -14,29 +14,34 @@ const Home = () => {
         heading: {
             textAlign: "center",
             color: "#fefefe"
+        },
+        body: {
+            minHeight: "calc(91vh - 4rem)"
         }
     }));
 
     const classes = useStyles();
 
     return (
-        <Container maxWidth="xl">
-            <Navbar />
+        <Container maxWidth={false}>
+            <div className={classes.body}>
 
-            <Grid>
-                <Typography variant="h3" className={classes.heading} gutterBottom>Featured Projects</Typography>
-            </Grid>
+                <Navbar highlight="home" />
 
-            <Grid container spacing={4} justifyContent="center">
-                <Grid item>
-                    <FeaturedProject repo="developer-site.react" url="https://alex-more.com" desc={desc_project1} />
+                <Grid>
+                    <Typography variant="h3" className={classes.heading} gutterBottom>Featured Projects</Typography>
                 </Grid>
 
-                <Grid item>
-                    <FeaturedProject repo="blog-manager" url="#" desc={desc_project2} />
-                </Grid>
-            </Grid>
+                <Grid container spacing={4} justifyContent="center">
+                    <Grid item>
+                        <FeaturedProject repo="developer-site.react" url="https://alex-more.com" desc={desc_project1} />
+                    </Grid>
 
+                    <Grid item>
+                        <FeaturedProject repo="blog-manager" url="#" desc={desc_project2} />
+                    </Grid>
+                </Grid>
+            </div>
             <Footer />
         </Container>
     )

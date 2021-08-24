@@ -14,6 +14,9 @@ const Projects = () => {
         heading: {
             textAlign: "center",
             color: "#fefefe"
+        },
+        body: {
+            minHeight: "calc(91vh - 4rem)"
         }
     }));
 
@@ -47,25 +50,26 @@ const Projects = () => {
     }
     return (
         <Container maxWidth="xl">
-            <Navbar />
+            <div className={classes.body}>
+                <Navbar highlight="projects" />
 
-            <Grid>
-                <Typography variant="h3" className={classes.heading} gutterBottom>Projects</Typography>
-                <Typography variant="subtitle1" className={classes.heading} gutterBottom>This is an auto generated list of all my projects on Github.</Typography>
-            </Grid>
+                <Grid>
+                    <Typography variant="h3" className={classes.heading} gutterBottom>Projects</Typography>
+                    <Typography variant="subtitle1" className={classes.heading} gutterBottom>This is an auto generated list of all my projects on Github.</Typography>
+                </Grid>
 
-            <br />
-            
-            <Grid container spacing={4} justifyContent="center">
-                {projects && projects.map(project => {
-                    return (
-                        <Grid item>
-                            <ProjectPeek repo={project.name} url={project.html_url} key={project.name} />
-                        </Grid>
-                    )
-                })}
-            </Grid>
+                <br />
 
+                <Grid container spacing={4} justifyContent="center">
+                    {projects && projects.map(project => {
+                        return (
+                            <Grid item>
+                                <ProjectPeek repo={project.name} url={project.html_url} key={project.name} />
+                            </Grid>
+                        )
+                    })}
+                </Grid>
+            </div>
             <Footer />
         </Container>
         /*
