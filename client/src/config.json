@@ -1,4 +1,4 @@
 {
-    "server_url": "backend",
+    "server_url": "localhost:4500",
     "github_username": "alex-more"
 }
