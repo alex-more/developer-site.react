@@ -24,7 +24,6 @@ const FeaturedProject = (props) => {
     const classes = useStyles();
 
     return (
-
         <Card variant="outlined" className={classes.root}>
 
             <CardMedia

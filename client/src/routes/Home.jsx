@@ -17,6 +17,10 @@ const Home = () => {
         },
         body: {
             minHeight: "calc(91vh - 4rem)"
+        },
+        textblock: {
+            width: 300,
+            color: "#fefefe"
         }
     }));
 
@@ -28,10 +32,29 @@ const Home = () => {
 
                 <Navbar highlight="home" />
 
+                <Grid container justifyContent="center" alignItems="flex-start">
+                    <Grid item>
+                        <Typography className={classes.textblock} variant="h3" gutterBottom>
+                            Hi, I'm Alex.
+                        </Typography>
+                    </Grid>
+
+                    <Grid item>
+                        <Typography className={classes.textblock} variant="body1" gutterBottom>
+                            I'm a programmer currently studying Computer Science at UQAM.
+                            <br /><br />
+                            I develop web applications, mainly using NodeJS and React.
+                        </Typography>
+                    </Grid>
+
+                </Grid>
+                <br /><br />
+                <br /><hr /><br />
+                <br /><br />
                 <Grid>
                     <Typography variant="h3" className={classes.heading} gutterBottom>Featured Projects</Typography>
                 </Grid>
-
+                <br />
                 <Grid container spacing={4} justifyContent="center">
                     <Grid item>
                         <FeaturedProject repo="developer-site.react" url="https://alex-more.com" desc={desc_project1} />

@@ -9,11 +9,11 @@ import LinkedInIcon from '@material-ui/icons/LinkedIn';
 
 const useStyles = makeStyles((theme) => ({
     heading: {
-        textAlign: "center",
+        textAlign: "start",
         color: "#fefefe"
     },
     text: {
-        textAlign: "justify",
+        textAlign: "start",
         color: "#fefefe"
     },
     link: {
@@ -31,18 +31,15 @@ const AboutMe = () => {
     return (
         <Container maxWidth={false}>
             <div className={classes.body}>
-            <Navbar highlight="about" />
+                <Navbar highlight="about" />
 
-            
                 <Grid container spacing={4} justifyContent="center">
                     <Grid item>
-                        <Typography variant="h3" className={classes.heading} gutterBottom>
-                            Hi, I'm Alex.
-                        </Typography>
-
-                        <br />
-
                         <Container maxWidth="sm">
+                            <Typography variant="h3" className={classes.heading} gutterBottom>
+                                Alex Moreno
+                            </Typography>
+
                             <Typography variant="body1" className={classes.text} gutterBottom>
                                 I'm a programmer currently studying Computer Science at UQAM.
                                 My main interest is web development, with a preference for the backend.
@@ -54,17 +51,15 @@ const AboutMe = () => {
 
                         <br />
 
-
                     </Grid>
 
                     <Grid item>
-                        <Typography variant="h3" className={classes.heading} gutterBottom>
-                            Skills
-                        </Typography>
-
-                        <br />
-
                         <Container maxWidth="sm">
+
+                            <Typography variant="h3" className={classes.heading} gutterBottom>
+                                Skills
+                            </Typography>
+
                             <div>
                                 <Typography variant="h6" className={classes.text}>BACKEND</Typography>
                                 <Typography variant="body1" className={classes.text} gutterBottom>

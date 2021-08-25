@@ -27,10 +27,8 @@ const Navbar = (props) => {
     const classes = useStyles();
 
     return (
-        <Box className={classes.bar} display="flex">
-            <Typography className={classes.title} variant="h4">
-                Alex Moreno
-            </Typography>
+        <Box className={classes.bar} display="flex" justifyContent="end">
+            
 
             <Button className={ props.highlight === "home"? classes.activeMenuButton : classes.menuButton } href="/">
                 Home
