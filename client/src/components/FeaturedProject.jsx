@@ -16,6 +16,9 @@ const useStyles = makeStyles({
     },
     red: {
         backgroundColor: 'red'
+    },
+    gutterBottom: {
+        marginBottom: "6px"
     }
 });
 
@@ -42,13 +45,13 @@ const FeaturedProject = (props) => {
                 </Typography>
             </CardContent>
 
-            <Grid container justifyContent="center">
-                <ButtonGroup target="_blank" variant="contained">
-                    <Button startIcon={<PlayCircleFilledIcon />} href={props.url} color="primary">
+            <Grid className={classes.gutterBottom} container justifyContent="center">
+                <ButtonGroup variant="contained">
+                    <Button target="_blank" startIcon={<PlayCircleFilledIcon />} href={props.url} color="primary">
                         Live Version
                     </Button>
 
-                    <Button startIcon={<GitHubIcon />} href={`https://github.com/${config.github_username}/${props.repo}`} color="secondary">
+                    <Button target="_blank" startIcon={<GitHubIcon />} href={`https://github.com/${config.github_username}/${props.repo}`} color="secondary">
                         Github Link
                     </Button>
                 </ButtonGroup>
