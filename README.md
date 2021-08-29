@@ -39,7 +39,7 @@ PGPORT=5432
 
 // Your admin credentials for managing the blog, you choose these.
 CUSER=your_username
-CPASSWORD=x21awev432
+CPASSWORD=your_password
 
 GITUSER=alex-more   // Your github username 
 
